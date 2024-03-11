@@ -1,24 +1,58 @@
 import './App.css';
-import {useRef} from "react";
-// const countries = ["Greece", "Mexico", "Philipines", "Maldives", "Costa Rica"];
+import {useState, useEffect} from "react";
+
+const query =`
+query {
+  allLifts {
+    name
+    elevationGain
+    status
+  }
+}`;
+
+const opts = {
+  method: "POST",
+  headers: { "Content-type": "application/json"},
+  body: JSON.stringify({ query })
+};
+
+
+function Lift({ name, elevationGain, status }) {
+  return (
+    <div>
+      <h1>{name}</h1>
+      <h2>{elevationGain}</h2>
+      <p>{status}</p>
+    </div>
+  );
+}
+
 
 function App() {
-  const textTitle = useRef();
-  const hexColour = useRef();
-  const submit = (e) => {e.preventDefault();
-    const title = textTitle.current.value;
-    const color = hexColour.current.value;
-    alert(`${title},${color}`);
-    textTitle.current.value = "";
-    hexColour.current.value="";
-  };
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`https://snowtooth.moonhighway.com/`, opts)
+    .then((response) => response.json())
+    .then(setData)
+    .then(() => setLoading(false))
+    .catch(setError);
+  }, []);
+
+  if (loading) return <h1>Loading...</h1>;
+  if(error) return <pre>{JSON.stringify(error)}</pre>;
+  if (!data) return null;
+  console.log(data, "DATA!!!");
   return (
-    <form onSubmit={submit}>
-      <input ref={textTitle} type="text" placeholder="colour Title" />
-      <input ref={hexColour} type="color" />
-      <button>My Color</button>
-    </form>
+    <div>
+      {data.data.allLifts.map((lift) => (
+        <Lift name={lift.name} elevationGain={lift.elevationGain} status={lift.status} />
+      ))}
+    </div>
   );
 }
 
