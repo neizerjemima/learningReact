@@ -1,35 +1,57 @@
 import './App.css';
-import {useState, useEffect} from "react";
+import { Link, Outlet } from "react-router-dom";
 
-const fam = [
-  { name: "Maame Ama", Age: 26},
-  { name: "Fred", Age: 20},
-  { name: "Victoria", Age: 17},
-  { name: "Richard", Age: 14},
-];
-
-function List ({data, renderItem, renderEmpty}) {
-  return !data.length ? (
-    renderEmpty) : (
-      <ul>
-        {data.map((item) =>(
-          <li key={item.name}>
-            {renderItem(item)}
-          </li>
-        ))}
-      </ul>
-    );
-}
-
-function App() {
+function Home() {
   return (
-    <List data={fam}
-    renderEmpty={<p>Aleart Fam is missing</p>}
-    renderItem={(item) => (
-      <> {item.name} - {item.Age} years old.</>
-    )}
-    />
+    <div>
+      <nav>
+      <Link to="/about">About</Link>
+      <Link to="/contact">Contact</Link>
+      </nav>
+      <h1>My Portfolio</h1>
+    </div>
   );
 }
+
+export function About() {
+  return (
+    <div>
+      <nav>
+      <Link to="/">Home</Link>
+      <Link to="/contact">Contact</Link>
+      </nav>
+      <h1>About Me</h1>
+      <Outlet/>
+    </div>
+  );
+}
+
+export function Myself() {
+  return (
+    <div>
+      <h1>My Story</h1>
+    </div>
+  );
+}
+
+export function Contact() {
+  return (
+    <div>
+      <nav>
+      <Link to="/">Home</Link>
+      <Link to="/about">About</Link>
+      </nav>
+      <h1>Contact Me</h1>
+    </div>
+  );
+}
+
+export function App() {
+  return (
+  <Home />
+  );
+}
+
+
 
 export default App;
