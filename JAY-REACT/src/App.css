@@ -4,8 +4,48 @@
 
 #root {
   margin-top: 20px;
+  text-align: right;
+  
+}
+
+#root a {
   text-align: center;
-  /* background-color: #19a197; */
+  background-color: #19a197;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 30px;
+  margin-top: 50px;
+}
+
+#root a:first-child {
+  padding: 30px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+#root a:hover {
+  background-color: #200020;
+  transition: 1.2s;
+  text-transform: uppercase;
+}
+
+
+#root nav {
+  margin-top: 40px;
+}
+
+
+#root h1 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #200020;
+}
+
+#root p {
+  line-height: 2;
+  margin: 0 90px 0 90px;
+  text-align: justify;
 }
 
 .App-logo {

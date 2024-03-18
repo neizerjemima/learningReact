@@ -1,4 +1,4 @@
-import { timesTwo } from "./functions";
+import { timesTwo } from "./function";
 
 test("Multiplies by two",() => {
 
